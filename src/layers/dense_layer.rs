@@ -8,8 +8,16 @@ struct DenseLayer {
 }
 
 
-impl ForwardPropagation for DenseLayer {}
+impl ForwardPropagation for DenseLayer {
+    fn forwards_propagate(&mut self) -> DVector<f64> {
+        todo!()
+    }
+}
 
-impl BackwardPropagationStochastic for DenseLayer {}
+impl BackwardPropagationStochastic for DenseLayer {
+    fn backwards_propagate(&mut self, learning_rate: &f64) -> DVector<f64> {
+        todo!()
+    }
+}
 
 impl Layer for DenseLayer {}
