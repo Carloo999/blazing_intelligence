@@ -12,8 +12,8 @@ struct FeedForward {
 }
 
 impl Model for FeedForward {
-    fn prompt(&self, mut input: DVector<f64>) -> DVector<f64> {
-        for mut layer in self.layers {
+    fn prompt(&mut self, mut input: DVector<f64>) -> DVector<f64> {
+        for mut layer in self.layers.iter_mut() {
             input = layer.forwards_propagate(&input);
         }
         input
