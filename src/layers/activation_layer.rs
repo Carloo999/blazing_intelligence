@@ -7,14 +7,14 @@ struct ActivationLayer {
 }
 
 impl ForwardPropagation for ActivationLayer {
-    fn forwards_propagate(&mut self) -> DVector<f64> {
-        todo!()
-    }
+    fn forwards_propagate(&mut self, input: &DVector<f64>) -> DVector<f64> {
+        input.map(self.activation_function.function)
+   }
 }
 
 impl BackwardPropagationStochastic for ActivationLayer {
-    fn backwards_propagate(&mut self, learning_rate: &f64) -> DVector<f64>{
-        todo!()
+    fn backwards_propagate(&mut self, output_grad: &DVector<f64>,_learning_rate: &f64) -> DVector<f64>{
+        output_grad.map(self.activation_function.derivative)
     }
 }
 
