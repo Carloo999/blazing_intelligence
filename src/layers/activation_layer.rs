@@ -1,9 +1,11 @@
 use nalgebra::DVector;
 use crate::layers::activation_function::ActivationFunction;
-use crate::layers::layer::{Layer, ForwardPropagation, BackwardPropagationStochastic};
+use crate::layers::layer::{Layer, ForwardPropagation, BackwardPropagationStochastic, ConvertToLayerEnum};
+use crate::layers::layer_enum::LayerEnum;
 
-struct ActivationLayer {
-    activation_function: ActivationFunction,
+#[derive(Clone)]
+pub(crate) struct ActivationLayer {
+    pub(crate) activation_function: ActivationFunction,
 }
 
 impl ForwardPropagation for ActivationLayer {
@@ -15,6 +17,12 @@ impl ForwardPropagation for ActivationLayer {
 impl BackwardPropagationStochastic for ActivationLayer {
     fn backwards_propagate(&mut self, output_grad: &DVector<f64>,_learning_rate: &f64) -> DVector<f64>{
         output_grad.map(self.activation_function.derivative)
+    }
+}
+
+impl ConvertToLayerEnum for ActivationLayer {
+    fn convert_to_enum(&self) -> LayerEnum {
+        LayerEnum::Activation_Layer(self.activation_function.function_name.clone())
     }
 }
 

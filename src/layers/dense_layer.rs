@@ -1,7 +1,8 @@
 use nalgebra::{DMatrix, DVector};
-use crate::layers::layer::{Layer, ForwardPropagation, BackwardPropagationStochastic};
-
-struct DenseLayer {
+use crate::layers::layer::{Layer, ForwardPropagation, BackwardPropagationStochastic, ConvertToLayerEnum};
+use crate::layers::layer_enum::LayerEnum;
+#[derive(Clone)]
+pub(crate) struct DenseLayer {
     weights: DMatrix<f64>,
     biases: DVector<f64>,
     last_input: Option<DVector<f64>>,
@@ -26,6 +27,12 @@ impl BackwardPropagationStochastic for DenseLayer {
             None => panic!("cannot perform backpropagation without running the forward pass first")
         }
         input_grad
+    }
+}
+
+impl ConvertToLayerEnum for DenseLayer {
+    fn convert_to_enum(&self) -> LayerEnum {
+        LayerEnum::Dense_Layer(self.clone())
     }
 }
 
