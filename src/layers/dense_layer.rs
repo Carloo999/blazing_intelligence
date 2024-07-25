@@ -1,11 +1,14 @@
 use nalgebra::{DMatrix, DVector};
 use crate::layers::layer::{Layer, ForwardPropagation, BackwardPropagationStochastic, ConvertToLayerEnum};
-use crate::layers::layer_enum::LayerEnum;
+use crate::models::model_management::layer_enum::LayerEnum;
+use crate::models::model_management::dense_layer_savable::DenseLayerSavable;
+use crate::nalgebra_utilities::type_conversion::ToSavable;
+
 #[derive(Clone)]
 pub(crate) struct DenseLayer {
-    weights: DMatrix<f64>,
-    biases: DVector<f64>,
-    last_input: Option<DVector<f64>>,
+    pub(crate) weights: DMatrix<f64>,
+    pub(crate) biases: DVector<f64>,
+    pub(crate) last_input: Option<DVector<f64>>,
 }
 
 
@@ -32,7 +35,27 @@ impl BackwardPropagationStochastic for DenseLayer {
 
 impl ConvertToLayerEnum for DenseLayer {
     fn convert_to_enum(&self) -> LayerEnum {
-        LayerEnum::Dense_Layer(self.clone())
+        LayerEnum::DenseLayer(self.to_savable())
+    }
+}
+
+impl DenseLayer{
+    fn to_savable(&self) -> DenseLayerSavable{
+        let last_input: Option<Vec<f64>>;
+
+        let weights:Vec<Vec<f64>>= self.weights.to_savable();
+        let biases: Vec<f64>= self.biases.to_savable();
+        match &self.last_input {
+            Some(x) => {
+                last_input = Some(x.to_savable())
+            }
+            None => {last_input = None}
+        }
+        DenseLayerSavable{
+            weights,
+            biases,
+            last_input,
+        }
     }
 }
 

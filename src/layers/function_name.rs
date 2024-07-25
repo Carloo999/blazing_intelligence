@@ -3,6 +3,7 @@ use crate::layers::activation_function::ActivationFunction;
 
 #[derive(Clone)]
 #[derive(Default)]
+#[derive(Savefile)]
 pub enum FunctionName {
     #[default]
     Tanh,

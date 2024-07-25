@@ -1,9 +1,9 @@
 use crate::models::learning_rate::learning_rate_adjuster::{ConvertToLearningRateAdjusterEnum, LearningRateAdjuster};
-use crate::models::learning_rate::learning_rate_adjuster_enum::LearningRateAdjusterEnum;
+use crate::models::model_management::learning_rate_adjuster_enum::LearningRateAdjusterEnum;
 use crate::models::learning_rate::training_context::TrainingContext;
 
 
-#[derive(Clone)]
+#[derive(Savefile, Clone)]
 pub(crate) struct StepAdjust {
     curr_learning_rate: f64
 }
@@ -26,7 +26,7 @@ impl ConvertToLearningRateAdjusterEnum for StepAdjust{
 
 //---------------------------------------------------------------------
 
-#[derive(Clone)]
+#[derive(Savefile, Clone)]
 pub(crate) struct ExpAdjust {
     curr_learning_rate: f64
 }

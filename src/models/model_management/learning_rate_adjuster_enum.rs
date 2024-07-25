@@ -1,6 +1,7 @@
 use crate::models::learning_rate::base_learning_rate_adjusters::{StepAdjust, ExpAdjust};
 use crate::models::learning_rate::learning_rate_adjuster::LearningRateAdjuster;
 
+#[derive(Savefile)]
 pub enum LearningRateAdjusterEnum {
     StepAdjust(StepAdjust),
     ExpAdjust(ExpAdjust),

@@ -1,4 +1,3 @@
 pub(crate) mod learning_rate_adjuster;
 pub(crate) mod training_context;
-mod base_learning_rate_adjusters;
-pub(crate) mod learning_rate_adjuster_enum;
+pub(crate) mod base_learning_rate_adjusters;

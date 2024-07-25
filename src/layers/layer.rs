@@ -1,5 +1,5 @@
 use nalgebra::{DVector, VecStorage};
-use crate::layers::layer_enum::LayerEnum;
+use crate::models::model_management::layer_enum::LayerEnum;
 
 pub(crate) trait Layer: ForwardPropagation + BackwardPropagationStochastic + ConvertToLayerEnum{}
 

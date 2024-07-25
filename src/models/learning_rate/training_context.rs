@@ -1,4 +1,4 @@
-#[derive(Clone)]
+#[derive(Savefile,Clone)]
 pub struct TrainingContext {
     pub mse_evolution: Vec<f64>,
     pub epoch_count: usize,

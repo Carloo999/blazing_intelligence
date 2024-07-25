@@ -1,7 +1,7 @@
 use nalgebra::DVector;
 use crate::layers::activation_function::ActivationFunction;
 use crate::layers::layer::{Layer, ForwardPropagation, BackwardPropagationStochastic, ConvertToLayerEnum};
-use crate::layers::layer_enum::LayerEnum;
+use crate::models::model_management::layer_enum::LayerEnum;
 
 #[derive(Clone)]
 pub(crate) struct ActivationLayer {
@@ -22,7 +22,7 @@ impl BackwardPropagationStochastic for ActivationLayer {
 
 impl ConvertToLayerEnum for ActivationLayer {
     fn convert_to_enum(&self) -> LayerEnum {
-        LayerEnum::Activation_Layer(self.activation_function.function_name.clone())
+        LayerEnum::ActivationLayer(self.activation_function.function_name.clone())
     }
 }
 
