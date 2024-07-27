@@ -6,3 +6,6 @@ authors = ["Carlo Feddeck <carlo.bene@web.de>","Jan Kunde <jankunde00@gmail.com>
 
 [dependencies]
 nalgebra = "0.33.0"
+log = "0.4.22"
+savefile = "0.17.6"
+savefile-derive = "0.17.6"
