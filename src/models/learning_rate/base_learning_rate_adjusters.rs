@@ -2,12 +2,18 @@ use crate::models::learning_rate::learning_rate_adjuster::{ConvertToLearningRate
 use crate::models::model_management::learning_rate_adjuster_enum::LearningRateAdjusterEnum;
 use crate::models::learning_rate::training_context::TrainingContext;
 
-
 #[derive(Savefile, Clone)]
-pub(crate) struct StepAdjust {
-    pub(crate) curr_learning_rate: f64
+pub(crate) struct ExpAdjust {
+    curr_learning_rate: f64
 }
-impl LearningRateAdjuster for StepAdjust {
+
+impl ExpAdjust {
+    pub fn new() -> ExpAdjust {
+        todo!()
+    }
+}
+
+impl LearningRateAdjuster for ExpAdjust {
     fn adjust(&mut self, context: TrainingContext) {
         todo!()
     }
@@ -17,22 +23,36 @@ impl LearningRateAdjuster for StepAdjust {
     }
 }
 
-
-impl ConvertToLearningRateAdjusterEnum for StepAdjust{
+impl ConvertToLearningRateAdjusterEnum for ExpAdjust {
     fn convert_to_adjuster_enum(&self) -> LearningRateAdjusterEnum {
-        LearningRateAdjusterEnum::StepAdjust(self.clone())
+        todo!()
     }
 }
 
-//---------------------------------------------------------------------
+impl ConvertToLearningRateAdjusterEnum for ExpAdjust {
+    fn convert_to_adjuster_enum(&self) -> LearningRateAdjusterEnum {
+        LearningRateAdjusterEnum::ExpAdjust(self.clone())
+    }
+}
 
 #[derive(Savefile, Clone)]
-pub(crate) struct ExpAdjust {
-    curr_learning_rate: f64
+pub struct StepAdjust {
+    curr_learning_rate: f64,
+    step_width: f64
 }
-impl LearningRateAdjuster for ExpAdjust {
+
+impl StepAdjust {
+    pub fn new(step_width: f64, starting_learning_rate: f64) -> StepAdjust {
+        StepAdjust {
+            curr_learning_rate: starting_learning_rate,
+            step_width,
+        }
+    }
+}
+
+impl LearningRateAdjuster for StepAdjust {
     fn adjust(&mut self, context: TrainingContext){
-        todo!()
+        self.curr_learning_rate -= self.step_width
     }
 
     fn get_learning_rate(&self) -> f64 {
@@ -40,9 +60,9 @@ impl LearningRateAdjuster for ExpAdjust {
     }
 }
 
-
-impl ConvertToLearningRateAdjusterEnum for ExpAdjust {
+impl ConvertToLearningRateAdjusterEnum for StepAdjust{
     fn convert_to_adjuster_enum(&self) -> LearningRateAdjusterEnum {
-        LearningRateAdjusterEnum::ExpAdjust(self.clone())
+        LearningRateAdjusterEnum::StepAdjust(self.clone())
     }
 }
+
