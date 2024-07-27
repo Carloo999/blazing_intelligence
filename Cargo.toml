@@ -5,4 +5,4 @@ edition = "2021"
 authors = ["Carlo Feddeck <carlo.bene@web.de>","Jan Kunde <jankunde00@gmail.com>"]
 
 [dependencies]
-nalgebra = "0.33.0"
+nalgebra = { version = "0.33.0", features = ["rand"] }

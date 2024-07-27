@@ -1,4 +1,4 @@
-mod feed_forward;
-mod model;
+pub mod feed_forward;
+pub mod model;
 mod model_manager;
-pub(crate) mod learning_rate;
+pub mod learning_rate;

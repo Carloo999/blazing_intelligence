@@ -1,7 +1,7 @@
 use nalgebra::{DMatrix, DVector};
 use crate::layers::layer::{Layer, ForwardPropagation, BackwardPropagationStochastic};
 
-struct DenseLayer {
+pub struct DenseLayer {
     weights: DMatrix<f64>,
     biases: DVector<f64>,
     last_input: Option<DVector<f64>>,
@@ -11,7 +11,7 @@ struct DenseLayer {
 impl ForwardPropagation for DenseLayer {
     fn forwards_propagate(&mut self, input: &DVector<f64>) -> DVector<f64> {
         self.last_input = Some(input.clone());
-        input * &self.weights + &self.biases
+        &self.weights * input + &self.biases
     }
 }
 
@@ -30,3 +30,13 @@ impl BackwardPropagationStochastic for DenseLayer {
 }
 
 impl Layer for DenseLayer {}
+
+impl DenseLayer {
+    pub fn new(input_amount: usize, neuron_amount: usize) -> DenseLayer {
+        DenseLayer {
+            weights: DMatrix::new_random(neuron_amount, input_amount),
+            biases: DVector::new_random(neuron_amount),
+            last_input: None,
+        }
+    }
+}

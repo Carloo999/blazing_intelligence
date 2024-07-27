@@ -1,6 +1,6 @@
 use nalgebra::{DVector, VecStorage};
 
-pub(crate) trait Layer: ForwardPropagation + BackwardPropagationStochastic{}
+pub trait Layer: ForwardPropagation + BackwardPropagationStochastic{}
 
 pub(crate) trait ForwardPropagation{
     fn forwards_propagate(&mut self, input: &DVector<f64>) -> DVector<f64>;
