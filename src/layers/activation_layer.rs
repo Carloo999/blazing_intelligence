@@ -2,7 +2,7 @@ use nalgebra::DVector;
 use crate::layers::activation_function::ActivationFunction;
 use crate::layers::layer::{Layer, ForwardPropagation, BackwardPropagationStochastic};
 
-struct ActivationLayer {
+pub struct ActivationLayer {
     activation_function: ActivationFunction,
 }
 
@@ -19,3 +19,11 @@ impl BackwardPropagationStochastic for ActivationLayer {
 }
 
 impl Layer for ActivationLayer {}
+
+impl ActivationLayer {
+    pub fn new(activation_function: ActivationFunction) -> ActivationLayer {
+        ActivationLayer {
+            activation_function
+        }
+    }
+}
