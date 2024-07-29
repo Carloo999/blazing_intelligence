@@ -15,7 +15,7 @@ pub(crate) struct DenseLayer {
 impl ForwardPropagation for DenseLayer {
     fn forwards_propagate(&mut self, input: &DVector<f64>) -> DVector<f64> {
         self.last_input = Some(input.clone());
-        input * &self.weights + &self.biases
+        &self.weights * input + &self.biases
     }
 }
 

@@ -5,7 +5,7 @@ use crate::models::learning_rate::training_context::TrainingContext;
 
 #[derive(Savefile, Clone)]
 pub(crate) struct StepAdjust {
-    curr_learning_rate: f64
+    pub(crate) curr_learning_rate: f64
 }
 impl LearningRateAdjuster for StepAdjust {
     fn adjust(&mut self, context: TrainingContext) {
