@@ -27,3 +27,11 @@ impl ConvertToLayerEnum for ActivationLayer {
 }
 
 impl Layer for ActivationLayer {}
+
+impl ActivationLayer {
+    pub fn new(activation_function: ActivationFunction) -> ActivationLayer {
+        ActivationLayer {
+            activation_function
+        }
+    }
+}
