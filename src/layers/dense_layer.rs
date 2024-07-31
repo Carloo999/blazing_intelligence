@@ -2,7 +2,7 @@ use nalgebra::{DMatrix, DVector};
 use crate::layers::layer::{Layer, ForwardPropagation, BackwardPropagationStochastic, ConvertToLayerEnum};
 use crate::models::model_management::layer_enum::LayerEnum;
 use crate::models::model_management::dense_layer_savable::DenseLayerSavable;
-use crate::nalgebra_utilities::type_conversion::ToSavable;
+use crate::utilities::type_conversion::ToSavable;
 
 #[derive(Clone)]
 pub struct DenseLayer {
