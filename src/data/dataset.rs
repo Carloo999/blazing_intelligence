@@ -1,8 +1,8 @@
 use nalgebra::DVector;
 
 pub struct Dataset {
-    pub inputs: DVector<DVector<f64>>,
-    pub labels: DVector<f64>
+    pub inputs: Vec<DVector<f64>>,
+    pub labels: Vec<DVector<f64>>
 }
 
 impl Dataset {

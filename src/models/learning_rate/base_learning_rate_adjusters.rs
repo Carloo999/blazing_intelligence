@@ -8,7 +8,7 @@ pub(crate) struct StepAdjust {
     pub(crate) curr_learning_rate: f64
 }
 impl LearningRateAdjuster for StepAdjust {
-    fn adjust(&mut self, context: TrainingContext) {
+    fn adjust(&mut self, context: &TrainingContext) {
         todo!()
     }
 
@@ -31,7 +31,7 @@ pub(crate) struct ExpAdjust {
     curr_learning_rate: f64
 }
 impl LearningRateAdjuster for ExpAdjust {
-    fn adjust(&mut self, context: TrainingContext){
+    fn adjust(&mut self, context: &TrainingContext){
         todo!()
     }
 
