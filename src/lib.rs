@@ -1,3 +1,3 @@
 pub mod models;
 pub mod layers;
-mod data;
+pub mod data;

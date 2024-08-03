@@ -6,3 +6,4 @@ authors = ["Carlo Feddeck <carlo.bene@web.de>","Jan Kunde <jankunde00@gmail.com>
 
 [dependencies]
 nalgebra = { version = "0.33.0", features = ["rand"] }
+csv = "1.3.0"
