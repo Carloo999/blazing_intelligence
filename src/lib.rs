@@ -1,6 +1,6 @@
 pub mod models;
 pub mod layers;
-mod data;
+pub mod data;
 mod nalgebra_utilities;
 
 #[macro_use]
