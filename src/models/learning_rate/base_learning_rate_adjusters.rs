@@ -25,12 +25,6 @@ impl LearningRateAdjuster for ExpAdjust {
 
 impl ConvertToLearningRateAdjusterEnum for ExpAdjust {
     fn convert_to_adjuster_enum(&self) -> LearningRateAdjusterEnum {
-        todo!()
-    }
-}
-
-impl ConvertToLearningRateAdjusterEnum for ExpAdjust {
-    fn convert_to_adjuster_enum(&self) -> LearningRateAdjusterEnum {
         LearningRateAdjusterEnum::ExpAdjust(self.clone())
     }
 }

@@ -11,9 +11,9 @@ use crate::models::learning_rate::training_context::TrainingContext;
 use crate::models::model_management::model_enum::ModelEnum;
 use crate::models::model_management::model_manager::{ConvertToModelEnum, ModelManager};
 
-pub(crate) struct FeedForward {
+pub struct FeedForward {
     pub(crate) layers: Vec<Box<dyn Layer>>,
-    pub(crate) training_context: Option<TrainingContext>,
+    pub(crate) training_context: TrainingContext,
     pub(crate) learning_rate_adjuster: Box<dyn LearningRateAdjuster>,
 }
 
@@ -34,7 +34,7 @@ impl FeedForward {
     pub fn new(layer_structure: Vec<Box<dyn Layer>>, learning_rate_adjuster: Box<dyn LearningRateAdjuster>) -> Box<FeedForward> {
         let network = FeedForward {
             layers: layer_structure,
-            training_context: None,
+            training_context: TrainingContext::new_empty(),
             learning_rate_adjuster,
         };
         Box::new(network)
