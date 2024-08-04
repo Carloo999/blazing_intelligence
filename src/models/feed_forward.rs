@@ -1,6 +1,6 @@
+use nalgebra::{DVector, dvector};
 use std::io::Error;
 use std::path::Path;
-use nalgebra::DVector;
 use savefile::{load, load_file, save_file, SavefileError};
 use crate::data::dataset::Dataset;
 use crate::models::learning_rate::learning_rate_adjuster::LearningRateAdjuster;
@@ -11,13 +11,11 @@ use crate::models::learning_rate::training_context::TrainingContext;
 use crate::models::model_management::model_enum::ModelEnum;
 use crate::models::model_management::model_manager::{ConvertToModelEnum, ModelManager};
 
-pub(crate) struct FeedForward {
+pub struct FeedForward {
     pub(crate) layers: Vec<Box<dyn Layer>>,
     pub(crate) training_context: TrainingContext,
     pub(crate) learning_rate_adjuster: Box<dyn LearningRateAdjuster>,
 }
-
-
 
 impl Model for FeedForward {
     fn prompt(&mut self, mut input: DVector<f64>) -> DVector<f64> {
@@ -29,6 +27,17 @@ impl Model for FeedForward {
 
     fn train(&mut self, dataset: Dataset) {
         todo!()
+    }
+}
+
+impl FeedForward {
+    pub fn new(layer_structure: Vec<Box<dyn Layer>>, learning_rate_adjuster: Box<dyn LearningRateAdjuster>) -> Box<FeedForward> {
+        let network = FeedForward {
+            layers: layer_structure,
+            training_context: TrainingContext::new_empty(),
+            learning_rate_adjuster,
+        };
+        Box::new(network)
     }
 }
 

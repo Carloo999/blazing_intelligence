@@ -5,12 +5,11 @@ use crate::models::model_management::dense_layer_savable::DenseLayerSavable;
 use crate::nalgebra_utilities::type_conversion::ToSavable;
 
 #[derive(Clone)]
-pub(crate) struct DenseLayer {
+pub struct DenseLayer {
     pub(crate) weights: DMatrix<f64>,
     pub(crate) biases: DVector<f64>,
     pub(crate) last_input: Option<DVector<f64>>,
 }
-
 
 impl ForwardPropagation for DenseLayer {
     fn forwards_propagate(&mut self, input: &DVector<f64>) -> DVector<f64> {
@@ -60,3 +59,13 @@ impl DenseLayer{
 }
 
 impl Layer for DenseLayer {}
+
+impl DenseLayer {
+    pub fn new(input_amount: usize, neuron_amount: usize) -> DenseLayer {
+        DenseLayer {
+            weights: DMatrix::new_random(neuron_amount, input_amount),
+            biases: DVector::new_random(neuron_amount),
+            last_input: None,
+        }
+    }
+}

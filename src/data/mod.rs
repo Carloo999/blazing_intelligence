@@ -1,1 +1,1 @@
-pub(crate) mod dataset;
+pub mod dataset;

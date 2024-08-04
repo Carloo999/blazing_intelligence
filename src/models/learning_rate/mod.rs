@@ -1,3 +1,3 @@
 pub(crate) mod learning_rate_adjuster;
 pub(crate) mod training_context;
-pub(crate) mod base_learning_rate_adjusters;
+pub mod base_learning_rate_adjusters;

@@ -4,7 +4,7 @@ use crate::layers::layer::{Layer, ForwardPropagation, BackwardPropagationStochas
 use crate::models::model_management::layer_enum::LayerEnum;
 
 #[derive(Clone)]
-pub(crate) struct ActivationLayer {
+pub struct ActivationLayer {
     pub(crate) activation_function: ActivationFunction,
 }
 
@@ -27,3 +27,11 @@ impl ConvertToLayerEnum for ActivationLayer {
 }
 
 impl Layer for ActivationLayer {}
+
+impl ActivationLayer {
+    pub fn new(activation_function: ActivationFunction) -> ActivationLayer {
+        ActivationLayer {
+            activation_function
+        }
+    }
+}
