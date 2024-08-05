@@ -3,8 +3,9 @@ use csv::Reader;
 use nalgebra::{DVector, dvector};
 use std::path::Path;
 use savefile::{load_file, save_file, SavefileError};
-use crate::nalgebra_utilities::type_conversion::{FromSavable, ToSavable};
+use crate::utilities::type_conversion::{FromSavable, ToSavable};
 
+#[derive(Clone)]
 pub struct Dataset {
     pub inputs: Vec<DVector<f64>>,
     pub labels: Vec<DVector<f64>>

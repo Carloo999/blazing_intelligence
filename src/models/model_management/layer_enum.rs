@@ -16,7 +16,7 @@ impl LayerEnum {
         return match self {
             LayerEnum::DenseLayer(x) => Box::new(x.to_dense_layer()),
             LayerEnum::ActivationLayer(x) => {
-                Box::new(ActivationLayer{activation_function: x.convert_to_activation_function(custom_activation_function)})
+                Box::new(ActivationLayer{activation_function: x.convert_to_activation_function(custom_activation_function), last_input: None })
             },
         }
     }
