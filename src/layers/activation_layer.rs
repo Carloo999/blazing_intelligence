@@ -6,17 +6,25 @@ use crate::models::model_management::layer_enum::LayerEnum;
 #[derive(Clone)]
 pub struct ActivationLayer {
     pub(crate) activation_function: ActivationFunction,
+    pub(crate) last_input: Option<DVector<f64>>,
 }
 
 impl ForwardPropagation for ActivationLayer {
     fn forwards_propagate(&mut self, input: &DVector<f64>) -> DVector<f64> {
+        self.last_input = Some(input.clone());
         input.map(self.activation_function.function)
    }
 }
 
 impl BackwardPropagationStochastic for ActivationLayer {
     fn backwards_propagate(&mut self, output_grad: &DVector<f64>,_learning_rate: &f64) -> DVector<f64>{
-        output_grad.map(self.activation_function.derivative)
+        match &self.last_input {
+            None => { panic!("cannot perform backpropagation without running the forward pass first") }
+            Some(last_input) => {
+                let derivative_vals = last_input.map(self.activation_function.derivative);
+                output_grad.component_mul(&derivative_vals)
+            }
+        }
     }
 }
 
