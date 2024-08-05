@@ -6,9 +6,9 @@ use crate::utilities::type_conversion::ToSavable;
 
 #[derive(Clone)]
 pub struct DenseLayer {
-    pub(crate) weights: DMatrix<f64>,
-    pub(crate) biases: DVector<f64>,
-    pub(crate) last_input: Option<DVector<f64>>,
+    pub weights: DMatrix<f64>,
+    pub biases: DVector<f64>,
+    pub last_input: Option<DVector<f64>>,
 }
 
 impl ForwardPropagation for DenseLayer {
