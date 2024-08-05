@@ -38,7 +38,7 @@ impl Model for FeedForward {
                 let output: DVector<f64> = self.prompt(input.clone());
                 let mse: f64 = MathUtils::calculate_mse(&output, correct);
                 let mut grad = MathUtils::calculate_mse_prime(&output, correct);
-                for layer in self.layers.iter_mut() {
+                for layer in self.layers.iter_mut().rev() {
                     grad = layer.backwards_propagate(&grad, &self.learning_rate_adjuster.get_learning_rate());
                 }
                 mse_sum += mse.clone();
