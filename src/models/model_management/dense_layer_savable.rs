@@ -1,7 +1,7 @@
 use nalgebra::{DMatrix, DVector};
 use crate::layers::dense_layer::DenseLayer;
-use crate::nalgebra_utilities::type_conversion;
-use crate::nalgebra_utilities::type_conversion::FromSavable;
+use crate::utilities::type_conversion;
+use crate::utilities::type_conversion::FromSavable;
 #[derive(Savefile)]
 pub struct DenseLayerSavable{
     pub(crate) weights: Vec<Vec<f64>>,

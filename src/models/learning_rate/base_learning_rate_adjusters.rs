@@ -14,7 +14,7 @@ impl ExpAdjust {
 }
 
 impl LearningRateAdjuster for ExpAdjust {
-    fn adjust(&mut self, context: TrainingContext) {
+    fn adjust(&mut self, context: &TrainingContext){
         todo!()
     }
 
@@ -22,6 +22,7 @@ impl LearningRateAdjuster for ExpAdjust {
         self.curr_learning_rate
     }
 }
+
 
 impl ConvertToLearningRateAdjusterEnum for ExpAdjust {
     fn convert_to_adjuster_enum(&self) -> LearningRateAdjusterEnum {
@@ -45,7 +46,7 @@ impl StepAdjust {
 }
 
 impl LearningRateAdjuster for StepAdjust {
-    fn adjust(&mut self, _context: TrainingContext){
+    fn adjust(&mut self, _context: &TrainingContext){
         self.curr_learning_rate -= self.step_width
     }
 
