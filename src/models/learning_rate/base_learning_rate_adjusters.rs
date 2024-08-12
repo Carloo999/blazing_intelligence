@@ -108,3 +108,31 @@ impl LearningRateAdjuster for DynAdjust {
         self.curr_learning_rate
     }
 }
+
+///# Static Adjust
+#[derive(Savefile, Clone)]
+pub struct StaticAdjust {
+    static_learning_rate: f64,
+}
+
+impl StaticAdjust {
+    pub fn new(static_learning_rate: f64) -> StaticAdjust {
+        StaticAdjust {
+            static_learning_rate,
+        }
+    }
+}
+
+impl LearningRateAdjuster for StaticAdjust {
+    fn adjust(&mut self, _context: &mut TrainingContext) { }
+
+    fn get_learning_rate(&self) -> f64 {
+        self.static_learning_rate
+    }
+}
+
+impl ConvertToLearningRateAdjusterEnum for StaticAdjust {
+    fn convert_to_adjuster_enum(&self) -> LearningRateAdjusterEnum {
+    LearningRateAdjusterEnum::StaticAdjust(self.clone())
+    }
+}

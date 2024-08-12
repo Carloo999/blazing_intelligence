@@ -46,7 +46,7 @@ impl Model for FeedForward {
             }
             self.training_context.mse_evolution.push(mse_sum / dataset.inputs.len() as f64);
             self.training_context.epoch_count += 1;
-            self.learning_rate_adjuster.adjust(&self.training_context);
+            self.learning_rate_adjuster.adjust(&mut self.training_context);
         }
     }
 }
