@@ -28,7 +28,7 @@ impl Model for FeedForward {
         input
     }
 
-    fn train_gradient_desc(&mut self, epochs: usize, batch_size: usize, dataset: Dataset) {
+    fn train_gradient_desc(&mut self, epochs: usize, batch_size: usize, training_dataset: Dataset) {
         todo!()
     }
 
@@ -47,7 +47,30 @@ impl Model for FeedForward {
             self.training_context.mse_evolution.push(mse_sum / dataset.inputs.len() as f64);
             self.training_context.epoch_count += 1;
             self.learning_rate_adjuster.adjust(&mut self.training_context);
+
+            println!("Epoch: {}, MSE: {}", epoch, mse_sum / dataset.inputs.len() as f64);
         }
+    }
+
+    fn test_network(&mut self, test_dataset: Dataset) {
+        let mut mse = 0.;
+        let mut correct: usize = 0;
+        let mut incorrect: usize = 0;
+
+        for (input, label) in test_dataset.inputs.iter().zip(test_dataset.labels) {
+            let output = self.prompt(input.clone());
+            mse += MathUtils::calculate_mse(&output, &label);
+            if MathUtils::index_of_max_element(&output) == MathUtils::index_of_max_element(&label) {
+                correct += 1;
+            }
+            else {
+                incorrect += 1;
+            }
+            println!("Input: {}", input);
+            println!("Output: {}", &output)
+        }
+        println!("Correct: {}, Incorrect: {}", correct, incorrect);
+        println!("MSE: {}", mse / test_dataset.inputs.len() as f64)
     }
 }
 
