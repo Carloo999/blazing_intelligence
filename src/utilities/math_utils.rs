@@ -19,4 +19,22 @@ impl MathUtils {
             .collect();
         DVector::from_vec(derivatives)
     }
+
+    // should be optimized in the future
+    pub fn index_of_max_element(d_vec: &DVector<f64>) -> usize {
+        let mut index: usize = 0;
+
+        if d_vec.len() == 0 {
+            panic!("Empty DVector")
+        }
+        else if d_vec.len() == 1 {
+            return index
+        }
+        for curr_index in 1..d_vec.len() {
+            if d_vec[curr_index] > d_vec[index] {
+                index = curr_index;
+            }
+        }
+        index
+    }
 }
