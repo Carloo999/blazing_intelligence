@@ -26,4 +26,12 @@ impl ModelEnum{
             learning_rate_adjuster: self.learning_rate_adjuster.convert_to_learning_rate_adjuster(),
         })
     }
+
+    pub fn save(&self,path: &str) -> Result<(),SavefileError>{
+        save_file(path, 0, self)
+    }
+
+    pub fn load(path: &str) -> Result<ModelEnum, SavefileError>{
+        load_file(path, 0)
+    }
 }
