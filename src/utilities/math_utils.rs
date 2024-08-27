@@ -1,4 +1,4 @@
-use nalgebra::{DVector, dvector};
+use nalgebra::{DVector, dvector, DMatrix, dmatrix};
 
 pub struct MathUtils {
 
@@ -36,5 +36,30 @@ impl MathUtils {
             }
         }
         index
+    }
+
+    pub fn conv_2d_valid(m1: &DMatrix<f64>, m2: &DMatrix<f64>) -> DMatrix<f64> {
+        assert!(m1.shape().0 >= m2.shape().0 && m1.shape().1 >= m2.shape().1);
+
+        let output_rows = m1.shape().0 - m2.shape().0 + 1;
+        let output_cols = m1.shape().1 - m2.shape().1 + 1;
+        let mut output_matrix: DMatrix<f64> = DMatrix::zeros(output_rows, output_cols);
+
+        for offset_x in 0..output_rows {
+            for offset_y in 0..output_cols {
+                let mut sum = 0.0;
+                for x in 0..m2.shape().0 {
+                    for y in 0..m2.shape().1 {
+                        sum += m1[(x + offset_x, y + offset_y)] * m2[(x, y)];
+                    }
+                }
+                output_matrix[(offset_x, offset_y)] = sum;
+            }
+        }
+        output_matrix
+    }
+
+    pub fn conv_2d_full(m1: DMatrix<f64>, m2: DMatrix<f64>) -> DMatrix<f64> {
+        todo!()
     }
 }
