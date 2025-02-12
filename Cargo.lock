@@ -56,14 +56,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "blazing_intelligence_examples"
-version = "0.1.0"
-dependencies = [
- "blazing_intelligence",
- "nalgebra",
-]
-
-[[package]]
 name = "bytemuck"
 version = "1.17.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -186,6 +178,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "488016bfae457b036d996092f6cb448677611ce4449e970ceaf42695203f218a"
 dependencies = [
  "autocfg",
+]
+
+[[package]]
+name = "mnist"
+version = "0.1.0"
+dependencies = [
+ "blazing_intelligence",
+ "csv",
+ "nalgebra",
+ "savefile",
+ "savefile-derive",
 ]
 
 [[package]]

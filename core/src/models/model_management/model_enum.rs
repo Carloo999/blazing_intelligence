@@ -10,7 +10,7 @@ use savefile::prelude::*;
 #[derive(Savefile)]
 pub struct ModelEnum{
     pub(crate) layers: Vec<LayerEnum>,
-    pub(crate) training_context: TrainingContext,
+    pub training_context: TrainingContext,
     pub(crate) learning_rate_adjuster: LearningRateAdjusterEnum,
 }
 
