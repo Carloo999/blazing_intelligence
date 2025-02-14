@@ -2,6 +2,8 @@ use crate::layers::function_name::FunctionName;
 //to add new ActivationFunction constructors,
 //add the name of the new function to the FunctionName enum
 //and extend the match block in the "convert_to_activation_function()" function.
+
+/// Struct containing the activation function and its derivative along with the function name
 #[derive(Clone)]
 pub struct ActivationFunction{
     pub function_name: FunctionName,
@@ -10,6 +12,8 @@ pub struct ActivationFunction{
 }
 
 impl ActivationFunction {
+
+    /// Returns the hyperbolic tangent activation function and its derivative
     pub fn tanh() -> ActivationFunction{
         ActivationFunction{
             function_name: FunctionName::Tanh,
@@ -18,6 +22,7 @@ impl ActivationFunction {
         }
     }
 
+    /// Returns the sigmoid activation function and its derivative
     pub fn sigmoid() -> ActivationFunction {
         ActivationFunction{
             function_name: FunctionName::Sigmoid,
@@ -29,6 +34,7 @@ impl ActivationFunction {
         }
     }
 
+    /// Returns the rectified linear unit activation function and its derivative
     pub fn relu() -> ActivationFunction {
         ActivationFunction{
             function_name: FunctionName::RELU,
@@ -37,6 +43,7 @@ impl ActivationFunction {
         }
     }
 
+    /// Returns the gaussian (leaky) rectified linear unit activation function and its derivative
     pub fn gelu() -> ActivationFunction {
         ActivationFunction{
             function_name: FunctionName::GELU,
@@ -48,11 +55,11 @@ impl ActivationFunction {
 }
 
 impl Default for ActivationFunction {
+    /// Returns the default activation function, which is the hyperbolic tangent function
     fn default() -> Self {
         ActivationFunction::tanh()
     }
 }
-
 
 
 fn sigmoid(x: &f64) -> f64{

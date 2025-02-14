@@ -5,6 +5,8 @@ use crate::layers::activation_function::ActivationFunction;
 #[derive(Default)]
 #[derive(Savefile)]
 //when adding new function names, extend the match block in the "convert_to_activation_function()" function.
+
+/// Enum containing the names of all available activation functions, including a custom function and tanh as default
 pub enum FunctionName {
     #[default]
     Tanh,
@@ -15,6 +17,7 @@ pub enum FunctionName {
 }
 
 impl FunctionName {
+    /// creates a ActivationFunktion struct from the FunctionName enum
     pub fn convert_to_activation_function(&self,custom_function: Option<ActivationFunction>) -> ActivationFunction{
         match (&custom_function, self) {
             (Some(_),_) => custom_function.unwrap(),

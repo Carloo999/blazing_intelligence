@@ -5,6 +5,7 @@ use std::path::Path;
 use savefile::{load_file, save_file, SavefileError};
 use crate::utilities::type_conversion::{FromSavable, ToSavable};
 
+/// Contains the inputs and labels of the training dataset
 #[derive(Clone)]
 pub struct Dataset {
     pub inputs: Vec<DVector<f64>>,
@@ -12,10 +13,6 @@ pub struct Dataset {
 }
 
 impl Dataset {
-    pub fn size(&self) -> usize {
-        self.labels.len()
-    }
-
     pub fn new(inputs: Vec<DVector<f64>>, labels: Vec<DVector<f64>>) -> Dataset {
         Dataset {
             inputs,
@@ -23,6 +20,13 @@ impl Dataset {
         }
     }
 
+    /// returns the number of examples in the dataset
+    pub fn size(&self) -> usize {
+        self.labels.len()
+    }
+
+    /// constructs a dataset from a CSV file with the given number of output possibilities
+    /// with the first column being the label and the remaining entries of each row being the corresponding inputs
     pub fn new_from_csv(file_path: &str, output_possibilities: usize) -> Result<Dataset, io::Error> {
         let mut reader = Reader::from_path(file_path)?;
         let mut inputs: Vec<DVector<f64>> = Vec::new();
@@ -46,12 +50,15 @@ impl Dataset {
 
         Ok(Dataset { inputs, labels })
     }
+
+    /// constucts converts the label value to a one-hot vector
     fn get_expected_probabilities_vec(possibilities: usize, correct_option: usize) -> DVector<f64> {
         let mut vec = vec![0.0; possibilities];
         vec[correct_option] = 1.0;
         DVector::from_vec(vec)
     }
 
+    /// converts the dataset to a savable format and saves it to a .bin file
     pub fn save(&self, filepath: &Path) -> Result<(), SavefileError> {
         let mut savable_inputs: Vec<Vec<f64>> = vec![];
         let mut savable_outputs: Vec<Vec<f64>> = vec![];
@@ -64,6 +71,7 @@ impl Dataset {
         save_file(filepath, 0, &(savable_inputs, savable_outputs))
     }
 
+    /// loads a dataset from a .bin file, converting the savable format to the original format
     pub fn load(filepath: &Path) -> Result<Dataset, SavefileError> {
         let loaded_savable: (Vec<Vec<f64>>, Vec<Vec<f64>>) = load_file(filepath, 0)?;
         let mut loaded_inputs: Vec<DVector<f64>> = loaded_savable.0.iter().map(|vec| vec.from_savable()).collect();

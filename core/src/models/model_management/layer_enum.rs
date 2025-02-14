@@ -5,6 +5,7 @@ use crate::layers::layer::Layer;
 
 use savefile::prelude::*;
 use crate::models::model_management::dense_layer_savable::DenseLayerSavable;
+/// Enum containing eather a DenseLayer or a Function name, to make layers savable
 #[derive(Savefile)]
 pub enum LayerEnum {
     DenseLayer(DenseLayerSavable),
@@ -12,6 +13,7 @@ pub enum LayerEnum {
 }
 
 impl LayerEnum {
+    /// Converts the LayerEnum to its respective layer type, DenseLayer or ActivationLayer
     pub fn convert_to_layer(&self,custom_activation_function: Option<ActivationFunction>) -> Box<dyn Layer>{
         return match self {
             LayerEnum::DenseLayer(x) => Box::new(x.to_dense_layer()),

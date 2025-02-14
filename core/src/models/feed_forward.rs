@@ -12,6 +12,7 @@ use crate::models::model_management::model_enum::ModelEnum;
 use crate::models::model_management::model_manager::{ConvertToModelEnum, ModelManager};
 use crate::utilities::math_utils::MathUtils;
 
+/// FeedForward model struct which contains the layers, training context, and learning rate adjuster
 pub struct FeedForward {
     pub(crate) layers: Vec<Box<dyn Layer>>,
     pub(crate) training_context: TrainingContext,
@@ -21,6 +22,7 @@ pub struct FeedForward {
 
 
 impl Model for FeedForward {
+    /// Prompt the network with an input and return the output
     fn prompt(&mut self, mut input: DVector<f64>) -> DVector<f64> {
         for mut layer in self.layers.iter_mut() {
             input = layer.forwards_propagate(&input);
@@ -32,6 +34,8 @@ impl Model for FeedForward {
         todo!()
     }
 
+    /// Trains the network using stochastic gradient descent
+    /// <br> The network is trained for the given number of epochs directly adjusting the weights after each example
     fn train_stochastic_gradient_desc(&mut self, epochs: usize, dataset: Dataset) {
         for epoch in 0..epochs {
             let mut mse_sum: f64 = 0.0;
@@ -52,6 +56,7 @@ impl Model for FeedForward {
         }
     }
 
+    /// Tests the network on the given test dataset, printing the MSE and the number of correct and incorrect predictions
     fn test_network(&mut self, test_dataset: Dataset) {
         let mut mse = 0.;
         let mut correct: usize = 0;
@@ -75,6 +80,7 @@ impl Model for FeedForward {
 }
 
 impl FeedForward {
+    /// Constructs a new FeedForward model with the given layer structure and learning rate adjuster
     pub fn new(layer_structure: Vec<Box<dyn Layer>>, learning_rate_adjuster: Box<dyn LearningRateAdjuster>) -> Box<FeedForward> {
         let network = FeedForward {
             layers: layer_structure,
@@ -86,6 +92,7 @@ impl FeedForward {
 }
 
 impl ConvertToModelEnum for FeedForward {
+    /// Converts the FeedForward model to a ModelEnum which is the savable type for models
     fn convert_to_enum(&self) -> ModelEnum {
         let mut layers: Vec<LayerEnum> = vec![];
         for layer in self.layers.iter(){
@@ -100,11 +107,13 @@ impl ConvertToModelEnum for FeedForward {
 }
 
 impl ModelManager for FeedForward{
+    /// Saves the model to a .bin file at the given path
     fn save(&self, filepath: &Path) -> Result<(), SavefileError> {
         let savable = self.convert_to_enum();
         save_file(filepath, 0, &savable)
     }
 
+    /// Loads a model from a .bin file at the given path
     fn load(filepath: &Path) -> Result<Box<dyn Model>, SavefileError> {
         let loaded : Result<ModelEnum, SavefileError> = load_file(filepath, 0);
         match loaded {

@@ -1,16 +1,18 @@
 use nalgebra::{DVector, dvector};
 
+/// MathUtils struct which implements utility functions for math operations
 pub struct MathUtils {
-
 }
 
 impl MathUtils {
+    /// Calculates the mean squared error between the predicted and correct values
     pub fn calculate_mse(pred: &DVector<f64>, correct: &DVector<f64>) -> f64 {
         assert_eq!(correct.len(), pred.len());
         let total: f64 = correct.iter().zip(pred.iter()).map(|(c, p)| (c - p).powi(2)).sum();
         total / correct.len() as f64
     }
 
+    /// Calculates the derivative of the mean squared error between the predicted and correct values
     pub fn calculate_mse_prime(pred: &DVector<f64>, correct: &DVector<f64>) -> DVector<f64> {
         assert_eq!(correct.len(), pred.len());
         let derivatives = correct.iter()
@@ -20,7 +22,9 @@ impl MathUtils {
         DVector::from_vec(derivatives)
     }
 
+
     // should be optimized in the future
+    /// Returns the index of the maximum element in the DVector
     pub fn index_of_max_element(d_vec: &DVector<f64>) -> usize {
         let mut index: usize = 0;
 

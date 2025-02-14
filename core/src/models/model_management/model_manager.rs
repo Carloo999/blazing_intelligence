@@ -5,12 +5,13 @@ use crate::models::model::{Model};
 use crate::models::model_management::model_enum::ModelEnum;
 use crate::savefile_derive;
 
+/// ModelManager trait to be implemented by every type of model, making it savable and loadable
 pub trait ModelManager: ConvertToModelEnum {
     fn save(&self, path: &Path) -> Result<(), SavefileError>;
     fn load(filepath: &Path) -> Result<Box<dyn Model>, SavefileError>;
 }
 
-
+/// ConvertToModelEnum trait to be implemented by models that can be converted to ModelEnum to be saved to a file
 pub trait ConvertToModelEnum{
     fn convert_to_enum(&self) -> ModelEnum;
 }

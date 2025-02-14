@@ -2,6 +2,7 @@ use nalgebra::{DMatrix, DVector};
 use crate::layers::dense_layer::DenseLayer;
 use crate::utilities::type_conversion;
 use crate::utilities::type_conversion::FromSavable;
+/// DenseLayerSavable struct which contains the weights, biases, and the last input in a savable format
 #[derive(Savefile)]
 pub struct DenseLayerSavable{
     pub(crate) weights: Vec<Vec<f64>>,
@@ -10,6 +11,7 @@ pub struct DenseLayerSavable{
 }
 
 impl DenseLayerSavable{
+    /// Converts the DenseLayerSavable to a DenseLayer struct
     pub fn to_dense_layer(&self) -> DenseLayer{
         let weights:DMatrix<f64> = <Vec<Vec<f64>> as FromSavable<f64>>::from_savable(&self.weights);
         let biases:DVector<f64> = self.biases.from_savable();

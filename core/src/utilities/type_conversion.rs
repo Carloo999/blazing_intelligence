@@ -1,10 +1,13 @@
 use nalgebra::{DMatrix, dmatrix, DVector, dvector, Scalar, VecStorage};
 
+/// Trait for converting a type to a savable type
+/// <br> Used for converting DVector and DMatrix to Vec<Vec<T>> and Vec<T> respectively
 pub trait ToSavable<T: Clone + Sized>{
     type Output;
 
     fn to_savable(&self) -> Self::Output;
 }
+
 
 impl<T: Clone + Sized> ToSavable<T> for DVector<T>{
     type Output = Vec<T>;
@@ -28,7 +31,8 @@ impl<T: Clone + Sized> ToSavable<T> for DMatrix<T>{
 
 //-------------------------------------------------------------------------------
 
-
+/// Trait for converting a savable type to a type
+/// <br> Used for converting Vec<Vec<T>> and Vec<T> to DMatrix and DVector respectively
 pub trait FromSavable<T: Clone + Sized + Scalar>{
     type Output;
 
