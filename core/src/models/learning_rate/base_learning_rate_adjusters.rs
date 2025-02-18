@@ -114,6 +114,9 @@ impl ConvertToLearningRateAdjusterEnum for DynAdjust {
 impl LearningRateAdjuster for DynAdjust {
     /// Multiplies the learning rate by the reduction factor if the mse increases
     fn adjust(&mut self, context: &mut TrainingContext){
+        if context.mse_evolution.len() < 2{
+            return;
+        }
         if context.mse_evolution[context.mse_evolution.len()-2] < context.mse_evolution[context.mse_evolution.len()-1]{
             self.curr_learning_rate *= self.reduction_factor;
         }

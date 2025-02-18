@@ -1,8 +1,0 @@
-[package]
-name = "blazing_intelligence_examples"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-blazing_intelligence = { path = "../core" }
-nalgebra = { version = "0.33.0"  }
